@@ -1,0 +1,52 @@
+//
+// Created by Nafi Ahmet Turgut on 26.12.2017.
+//
+#include <iostream>
+
+
+
+
+
+#ifndef AXON_H
+#define AXON_H
+class AXON {
+
+public:
+AXON();
+    //INPUT PARAMETERS
+    double freq;
+    double pulsewidth;
+    double duration;
+    int in_ID;
+    int out_ID;
+
+    // OVERLOAD CONSTRUCTOR
+AXON(int,int);
+
+    //DELAY FUNCTION
+     double calculate_delay(bool) ;
+    void set_length(double);
+
+
+
+
+
+
+
+private:
+    // Axonal Parameters
+    bool myelination;                                         // 0/1 denoting unmyelinated/myelinated AXON
+    double length;                                           // Length of the AXON (mm)
+    double width;                                           // Axonal width
+    double resistivity,a_capacitance, a_resistance;
+    double ref_period,delay,r_i,r_m,space_const;
+    int control;
+
+
+
+
+};
+
+
+
+#endif //AXON_H
