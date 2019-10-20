@@ -24,7 +24,7 @@ public:
   NEURON(vector<int>,vector<CORDINATE>,vector<double>,int);
     void communicate();
 	void update_colltime(OutEvent);
-	
+	double neuron_specific_voltage = 15;
     vector<double> TimeVEC;
     vector<AXON> axon;
     vector<SYNAPSE> synapse;
@@ -35,7 +35,9 @@ public:
 	int Spike_num = 0;
 	int ax = 0;
 	int bx = 0;
-	double prevVolt = -70;
+	double prevVolt = -70; // mv
+	double decay_const = 1;
+	double conductance = 1e-11; // 10 pS 
 	vector<vector<double>> VoltCont;
 	vector<Spike> Spike_vector;
 	vector<vector<double>> SpikeCont;

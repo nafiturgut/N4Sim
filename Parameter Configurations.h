@@ -51,8 +51,8 @@ namespace Interface {
 	private: System::Windows::Forms::TextBox^  textBox4;
 	private: System::Windows::Forms::TextBox^  textBox3;
 	private: System::Windows::Forms::TextBox^  textBox2;
-	private: System::Windows::Forms::Label^  label10;
-	private: System::Windows::Forms::Label^  label9;
+
+
 	private: System::Windows::Forms::Label^  label8;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label1;
@@ -60,6 +60,19 @@ namespace Interface {
 	private: System::Windows::Forms::TabPage^  tabPage1;
 	private: System::Windows::Forms::TabPage^  tabPage2;
 	private: System::Windows::Forms::TabPage^  tabPage3;
+	private: System::Windows::Forms::GroupBox^  groupBox2;
+	private: System::Windows::Forms::TextBox^  textBox11;
+	private: System::Windows::Forms::Label^  label11;
+	private: System::Windows::Forms::TextBox^  textBox6;
+	private: System::Windows::Forms::TextBox^  textBox7;
+	private: System::Windows::Forms::TextBox^  textBox8;
+	private: System::Windows::Forms::TextBox^  textBox9;
+	private: System::Windows::Forms::Label^  label16;
+	private: System::Windows::Forms::Label^  label17;
+	private: System::Windows::Forms::Label^  label18;
+	private: System::Windows::Forms::Label^  label19;
+	private: System::Windows::Forms::Label^  label20;
+	private: System::Windows::Forms::TextBox^  textBox10;
 
 
 	private:
@@ -80,8 +93,6 @@ namespace Interface {
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -96,9 +107,23 @@ namespace Interface {
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
+			this->label16 = (gcnew System::Windows::Forms::Label());
+			this->label17 = (gcnew System::Windows::Forms::Label());
+			this->label18 = (gcnew System::Windows::Forms::Label());
+			this->label19 = (gcnew System::Windows::Forms::Label());
+			this->label20 = (gcnew System::Windows::Forms::Label());
+			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
+			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
 			this->groupBox1->SuspendLayout();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
+			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// groupBox1
@@ -107,8 +132,6 @@ namespace Interface {
 			this->groupBox1->Controls->Add(this->textBox4);
 			this->groupBox1->Controls->Add(this->textBox3);
 			this->groupBox1->Controls->Add(this->textBox2);
-			this->groupBox1->Controls->Add(this->label10);
-			this->groupBox1->Controls->Add(this->label9);
 			this->groupBox1->Controls->Add(this->label8);
 			this->groupBox1->Controls->Add(this->label7);
 			this->groupBox1->Controls->Add(this->label1);
@@ -127,7 +150,7 @@ namespace Interface {
 			// 
 			// textBox5
 			// 
-			this->textBox5->Location = System::Drawing::Point(119, 164);
+			this->textBox5->Location = System::Drawing::Point(146, 164);
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->Size = System::Drawing::Size(53, 20);
 			this->textBox5->TabIndex = 18;
@@ -136,7 +159,7 @@ namespace Interface {
 			// 
 			// textBox4
 			// 
-			this->textBox4->Location = System::Drawing::Point(119, 125);
+			this->textBox4->Location = System::Drawing::Point(146, 125);
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->Size = System::Drawing::Size(53, 20);
 			this->textBox4->TabIndex = 17;
@@ -145,7 +168,7 @@ namespace Interface {
 			// 
 			// textBox3
 			// 
-			this->textBox3->Location = System::Drawing::Point(119, 89);
+			this->textBox3->Location = System::Drawing::Point(146, 89);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(53, 20);
 			this->textBox3->TabIndex = 16;
@@ -154,35 +177,17 @@ namespace Interface {
 			// 
 			// textBox2
 			// 
-			this->textBox2->Location = System::Drawing::Point(119, 52);
+			this->textBox2->Location = System::Drawing::Point(146, 52);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(53, 20);
 			this->textBox2->TabIndex = 15;
 			this->textBox2->Text = L"0";
 			this->textBox2->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
-			// label10
-			// 
-			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(181, 167);
-			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(47, 13);
-			this->label10->TabIndex = 14;
-			this->label10->Text = L"Ω/cm^2";
-			// 
-			// label9
-			// 
-			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(182, 125);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(50, 13);
-			this->label9->TabIndex = 13;
-			this->label9->Text = L"µF/cm^2";
-			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(182, 95);
+			this->label8->Location = System::Drawing::Point(209, 95);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(20, 13);
 			this->label8->TabIndex = 12;
@@ -191,38 +196,38 @@ namespace Interface {
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(182, 58);
+			this->label7->Location = System::Drawing::Point(209, 58);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(24, 13);
+			this->label7->Size = System::Drawing::Size(21, 13);
 			this->label7->TabIndex = 11;
-			this->label7->Text = L"Ωm";
+			this->label7->Text = L"mv";
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(181, 22);
+			this->label1->Location = System::Drawing::Point(208, 22);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(21, 13);
+			this->label1->Size = System::Drawing::Size(20, 13);
 			this->label1->TabIndex = 10;
-			this->label1->Text = L"µm";
+			this->label1->Text = L"ms";
 			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
 			this->label6->Location = System::Drawing::Point(15, 167);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(87, 13);
+			this->label6->Size = System::Drawing::Size(62, 13);
 			this->label6->TabIndex = 9;
-			this->label6->Text = L"Resistance/Area";
+			this->label6->Text = L"MAX GLUT";
 			// 
 			// label5
 			// 
 			this->label5->AutoSize = true;
 			this->label5->Location = System::Drawing::Point(15, 128);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(93, 13);
+			this->label5->Size = System::Drawing::Size(68, 13);
 			this->label5->TabIndex = 7;
-			this->label5->Text = L"Capacitance/area";
+			this->label5->Text = L"Max AMPAR";
 			// 
 			// label4
 			// 
@@ -238,22 +243,22 @@ namespace Interface {
 			this->label3->AutoSize = true;
 			this->label3->Location = System::Drawing::Point(15, 55);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(54, 13);
+			this->label3->Size = System::Drawing::Size(85, 13);
 			this->label3->TabIndex = 3;
-			this->label3->Text = L"Resistivity";
+			this->label3->Text = L"Resting Potental";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
 			this->label2->Location = System::Drawing::Point(15, 22);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(35, 13);
+			this->label2->Size = System::Drawing::Size(55, 13);
 			this->label2->TabIndex = 1;
-			this->label2->Text = L"Width";
+			this->label2->Text = L"Time Step";
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(119, 19);
+			this->textBox1->Location = System::Drawing::Point(146, 19);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(53, 20);
 			this->textBox1->TabIndex = 0;
@@ -285,6 +290,7 @@ namespace Interface {
 			// 
 			// tabPage1
 			// 
+			this->tabPage1->Controls->Add(this->groupBox2);
 			this->tabPage1->Controls->Add(this->groupBox1);
 			this->tabPage1->Controls->Add(this->checkBox1);
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
@@ -292,7 +298,7 @@ namespace Interface {
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
 			this->tabPage1->Size = System::Drawing::Size(504, 335);
 			this->tabPage1->TabIndex = 0;
-			this->tabPage1->Text = L"Axon Parameters";
+			this->tabPage1->Text = L"Simulation Parameters";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
 			// tabPage2
@@ -315,6 +321,135 @@ namespace Interface {
 			this->tabPage3->Text = L"tabPage3";
 			this->tabPage3->UseVisualStyleBackColor = true;
 			// 
+			// groupBox2
+			// 
+			this->groupBox2->Controls->Add(this->textBox11);
+			this->groupBox2->Controls->Add(this->label11);
+			this->groupBox2->Controls->Add(this->textBox6);
+			this->groupBox2->Controls->Add(this->textBox7);
+			this->groupBox2->Controls->Add(this->textBox8);
+			this->groupBox2->Controls->Add(this->textBox9);
+			this->groupBox2->Controls->Add(this->label16);
+			this->groupBox2->Controls->Add(this->label17);
+			this->groupBox2->Controls->Add(this->label18);
+			this->groupBox2->Controls->Add(this->label19);
+			this->groupBox2->Controls->Add(this->label20);
+			this->groupBox2->Controls->Add(this->textBox10);
+			this->groupBox2->Location = System::Drawing::Point(256, 52);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(232, 232);
+			this->groupBox2->TabIndex = 2;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"STDP Parameters";
+			// 
+			// textBox6
+			// 
+			this->textBox6->Location = System::Drawing::Point(173, 167);
+			this->textBox6->Name = L"textBox6";
+			this->textBox6->Size = System::Drawing::Size(53, 20);
+			this->textBox6->TabIndex = 18;
+			this->textBox6->Text = L"0";
+			this->textBox6->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// textBox7
+			// 
+			this->textBox7->Location = System::Drawing::Point(173, 128);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->Size = System::Drawing::Size(53, 20);
+			this->textBox7->TabIndex = 17;
+			this->textBox7->Text = L"0";
+			this->textBox7->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// textBox8
+			// 
+			this->textBox8->Location = System::Drawing::Point(173, 92);
+			this->textBox8->Name = L"textBox8";
+			this->textBox8->Size = System::Drawing::Size(53, 20);
+			this->textBox8->TabIndex = 16;
+			this->textBox8->Text = L"0";
+			this->textBox8->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// textBox9
+			// 
+			this->textBox9->Location = System::Drawing::Point(173, 55);
+			this->textBox9->Name = L"textBox9";
+			this->textBox9->Size = System::Drawing::Size(53, 20);
+			this->textBox9->TabIndex = 15;
+			this->textBox9->Text = L"0";
+			this->textBox9->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// label16
+			// 
+			this->label16->AutoSize = true;
+			this->label16->Location = System::Drawing::Point(15, 167);
+			this->label16->Name = L"label16";
+			this->label16->Size = System::Drawing::Size(122, 13);
+			this->label16->TabIndex = 9;
+			this->label16->Text = L"AMPA Decay Constant  ";
+			// 
+			// label17
+			// 
+			this->label17->AutoSize = true;
+			this->label17->Location = System::Drawing::Point(15, 128);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(51, 13);
+			this->label17->TabIndex = 7;
+			this->label17->Text = L"Indicator-";
+			// 
+			// label18
+			// 
+			this->label18->AutoSize = true;
+			this->label18->Location = System::Drawing::Point(15, 92);
+			this->label18->Name = L"label18";
+			this->label18->Size = System::Drawing::Size(54, 13);
+			this->label18->TabIndex = 5;
+			this->label18->Text = L"Indicator+";
+			// 
+			// label19
+			// 
+			this->label19->AutoSize = true;
+			this->label19->Location = System::Drawing::Point(15, 55);
+			this->label19->Name = L"label19";
+			this->label19->Size = System::Drawing::Size(78, 13);
+			this->label19->TabIndex = 3;
+			this->label19->Text = L"Time Constant-";
+			// 
+			// label20
+			// 
+			this->label20->AutoSize = true;
+			this->label20->Location = System::Drawing::Point(15, 22);
+			this->label20->Name = L"label20";
+			this->label20->Size = System::Drawing::Size(81, 13);
+			this->label20->TabIndex = 1;
+			this->label20->Text = L"Time Constant+";
+			// 
+			// textBox10
+			// 
+			this->textBox10->Location = System::Drawing::Point(173, 22);
+			this->textBox10->Name = L"textBox10";
+			this->textBox10->Size = System::Drawing::Size(53, 20);
+			this->textBox10->TabIndex = 0;
+			this->textBox10->Text = L"0";
+			this->textBox10->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// label11
+			// 
+			this->label11->AutoSize = true;
+			this->label11->Location = System::Drawing::Point(15, 201);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(121, 13);
+			this->label11->TabIndex = 19;
+			this->label11->Text = L"GLUT Decay Constant  ";
+			// 
+			// textBox11
+			// 
+			this->textBox11->Location = System::Drawing::Point(173, 198);
+			this->textBox11->Name = L"textBox11";
+			this->textBox11->Size = System::Drawing::Size(53, 20);
+			this->textBox11->TabIndex = 20;
+			this->textBox11->Text = L"0";
+			this->textBox11->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
 			// ParameterConfigurations
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -328,6 +463,8 @@ namespace Interface {
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			this->tabPage1->PerformLayout();
+			this->groupBox2->ResumeLayout(false);
+			this->groupBox2->PerformLayout();
 			this->ResumeLayout(false);
 
 		}

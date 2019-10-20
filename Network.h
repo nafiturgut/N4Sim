@@ -38,11 +38,11 @@ public:
 	// Function to Randomize network for Custom Networks
 	void Init_Custom(int,int ,vector<int>*,vector<double>*);
 	// Function to Randomize network for Random Networks
-    void Randomize(int,int,int,vector<vector<int>>& ,int,int, bool , bool, bool , double ,bool,double,double,int,vector<vector<double>>&, vector<LAYER>&);
+    void Randomize(int,int,int,vector<vector<int>>& ,int,int, bool , bool, bool , double ,bool,double,double,int,vector<vector<double>>&, vector<LAYER>&,double);
 	// Function to display OUT LOG
 	void display_outlog(const vector<OutEvent>&);  
 	// Function to Initialize Networks
-	void Initialize_Network(int,int,int,int,int, bool , bool , bool , double,bool,double,double,int, vector<vector<double>> &);
+	void Initialize_Network(int,int,int,int,int, bool , bool , bool , double,bool,double,double,int, vector<vector<double>> &,double);
     void Start_Network(int,vector<vector<double>>&,int );
     void generate_Neuron(vector<vector<int>>&,vector<vector<double>>&,vector<CORDINATE>&,int,vector<NEURON>&,int, vector<LAYER>&);
     vector<CORDINATE> CordVEC;

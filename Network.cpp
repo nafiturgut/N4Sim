@@ -130,7 +130,8 @@ void Network::Init_Custom(int Neuron, int layer, vector<int>* Cmap, vector<doubl
 	{
 		double ax = Corvec[i][0];
 		double ay = Corvec[i][1];
-		CORDINATE corx(ax, ay);
+		double az = Corvec[i][2];
+		CORDINATE corx(ax, ay,az);
 		CordVEC.push_back(corx);
 	}
 	cout << "Here2" << endl;
@@ -146,6 +147,7 @@ void Network::Init_Custom(int Neuron, int layer, vector<int>* Cmap, vector<doubl
 			ConnMAP[i].push_back(a);
 		}
 	}
+	cout << "Here3" << endl;
 
 	for (int i = 0; i < Neuron; i++)
 	{
@@ -161,7 +163,7 @@ void Network::Init_Custom(int Neuron, int layer, vector<int>* Cmap, vector<doubl
 
 }
 
-void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> & ConnMAP,int type,int layer,bool regular,bool interfeed,bool intrafeed,double prob,bool gnet,double Xlim,double Ylim,int Cust,vector<vector<double>>& LayMAP, vector<LAYER>& Layy)
+void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> & ConnMAP,int type,int layer,bool regular,bool interfeed,bool intrafeed,double prob,bool gnet,double Xlim,double Ylim,int Cust,vector<vector<double>>& LayMAP, vector<LAYER>& Layy,double Zlim)
 {
 	srand(time(NULL));
 	if (Cust == 0) {
@@ -213,7 +215,12 @@ void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> 
 				y += (60 * (k + 1)) / (iNeuron + 1);
 				y = y / 100;
 				y = y * Ylim;
-				CORDINATE cord(x, y);
+				double z = rand() % 5;
+				z += 18;
+				z += (60 * (k + 1)) / (iNeuron + 1);
+				z = z / 100;
+				z = z * Zlim;
+				CORDINATE cord(x, y,z);
 				CordVEC.push_back(cord);
 			}
 			else if (k > tNeuron - oNeuron - 1) {
@@ -230,7 +237,12 @@ void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> 
 				y += (60 * (tNeuron - k)) / (oNeuron + 1);
 				y = y / 100;
 				y = y * Ylim;
-				CORDINATE cord(x, y);
+				double z = rand() % 5;
+				z += 18;
+				z += (60 * (tNeuron - k)) / (oNeuron + 1);
+				z = z / 100;
+				z = z * Zlim;
+				CORDINATE cord(x, y,z);
 				CordVEC.push_back(cord);
 			}
 			else if (gnet == 1) {
@@ -248,7 +260,13 @@ void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> 
 				y += (60 * (k - iNeuron + 1)) / (tNeuron - oNeuron - iNeuron + 1);
 				y = y / 100;
 				y = y * Ylim;
-				CORDINATE cord(x, y);
+				double z = rand() % 5;
+				z += 18;
+
+				z += (60 * (k - iNeuron + 1)) / (tNeuron - oNeuron - iNeuron + 1);
+				z = z / 100;
+				z = z * Zlim;
+				CORDINATE cord(x, y,z);
 				CordVEC.push_back(cord);
 			}
 			else {
@@ -263,7 +281,11 @@ void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> 
 				y += 10;
 				y = y / 100;
 				y = y * Ylim;
-				CORDINATE cord(x, y);
+				double z = rand() % 80;
+				z += 10;
+				z = z / 100;
+				z = z * Zlim;
+				CORDINATE cord(x, y,z);
 				CordVEC.push_back(cord);
 			}
 
@@ -352,16 +374,22 @@ void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> 
 			double y1 = LayMAP[i][1];
 			double x2 = LayMAP[i][2];
 			double y2 = LayMAP[i][3];
+			double z1 = LayMAP[i][5];
+
+			double z2 = LayMAP[i][6];
+
 			int NX= LayMAP[i][4];
-			LAYER lay(x1,y1,x2,y2,NX);
+			LAYER lay(x1,y1,x2,y2,NX,z1,z2);
 			Layy.push_back(lay);
 			cout << "NAT "<<Layy[i].xIN << endl;
 			for (int j = 0; j < NX; j++) {
 			
 				double xtemp;
 				double ytemp;
+				double ztemp;
 				double xdiff = x2 - x1;
 				double ydiff = y2 - y1;
+				double zdiff = z2 - z1;
 				if (xdiff >1e-3) {
 					int xr = xdiff * pow(10, 5);
 					 xtemp = rand() % xr;
@@ -397,9 +425,26 @@ void Network::Randomize(int tNeuron,int iNeuron,int oNeuron,vector<vector<int>> 
 					ytemp = ytemp / pow(10, 7);
 					ytemp = ytemp * Ylim;
 
+				}	
+				if (zdiff > 1e-3) {
+					int zr = zdiff * pow(10, 5);
+					ztemp = rand() % zr;
+					double zzz = z1 * pow(10, 5);
+					ztemp += zzz;
+					ztemp = ztemp / pow(10, 5);
+					ztemp = ztemp * Zlim;
+				}
+				else if (zdiff > 1e-6) {
+					int zr = zdiff * pow(10, 7);
+					ztemp = rand() % zr;
+					double zzz = z1 * pow(10, 7);
+					ztemp += zzz;
+					ztemp = ztemp / pow(10, 7);
+					ztemp = ztemp * Zlim;
+
 				}
 			
-				CORDINATE cord(xtemp, ytemp);
+				CORDINATE cord(xtemp, ytemp,ztemp);
 				CordVEC.push_back(cord);
 			
 
@@ -592,7 +637,7 @@ void Network::display_eventlog(const vector<Event>& EVENT_LOG){
     }
 
 }
-void Network::Initialize_Network(int Neuron,int iNeuron,int oNeuron,int type,int layer, bool regular, bool interfeed, bool intrafeed, double prob,bool gnet,double Xlim,double Ylim,int Cust,vector<vector<double>> & LayMAP) {
+void Network::Initialize_Network(int Neuron,int iNeuron,int oNeuron,int type,int layer, bool regular, bool interfeed, bool intrafeed, double prob,bool gnet,double Xlim,double Ylim,int Cust,vector<vector<double>> & LayMAP,double Zlim) {
 
 
 
@@ -601,7 +646,7 @@ void Network::Initialize_Network(int Neuron,int iNeuron,int oNeuron,int type,int
 
     vector<vector<double>> TMAP(Neuron,vector<double>(Neuron,0));
     TsMAP=TMAP;
-    Randomize(Neuron,iNeuron,oNeuron,ConnMAP,type,layer,  regular, interfeed, intrafeed,  prob,gnet,Xlim,Ylim,Cust,LayMAP,LayVEC);
+    Randomize(Neuron,iNeuron,oNeuron,ConnMAP,type,layer,  regular, interfeed, intrafeed,  prob,gnet,Xlim,Ylim,Cust,LayMAP,LayVEC,Zlim);
     generate_Neuron(ConnMAP,TsMAP,CordVEC,Neuron,NerVEC,layer,LayVEC);
 
 

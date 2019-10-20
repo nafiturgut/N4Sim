@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include "Network.h"
 #include "NEURON.h"
+#include "SYNAPSE.h"
+
 #include "Parameter Configurations.h"
 //#include <Engine.h>
 #include "matrix.h"
@@ -107,6 +109,12 @@ namespace Interface {
 	private: System::Windows::Forms::ToolStripPanel^  RightToolStripPanel;
 	private: System::Windows::Forms::ToolStripPanel^  LeftToolStripPanel;
 	private: System::Windows::Forms::ToolStripContentPanel^  ContentPanel;
+	private: System::Windows::Forms::Label^  label32;
+	private: System::Windows::Forms::Label^  label31;
+	private: System::Windows::Forms::TextBox^  textBox19;
+	private: System::Windows::Forms::TextBox^  textBox18;
+	private: System::Windows::Forms::Button^  button17;
+	private: System::Windows::Forms::CheckBox^  checkBox7;
 
 
 
@@ -128,7 +136,7 @@ namespace Interface {
 			//TODO: Add the constructor code here
 			//
 		}
-		void Start_Net(int, vector<vector<double>>&, int, Network,double);
+		void Start_Net(int, vector<vector<double>>&, int, Network&,double);
 		void update_M(vector<OutEvent>&, vector<OutEvent>&);
 		void update_O(vector<OutEvent>&, Event, vector<int>, vector<double>,int);
 		void MarshalString(String^s, string&os);
@@ -136,7 +144,8 @@ namespace Interface {
 		void LayerNeuron_ADD(vector<double>* , vector<double>* ,int,int ,double,double);
 		void Connection_CHANGE(vector<int>*, vector<int>*, vector<double>*, int,int,int,vector<int>*);
 		void Evaluate_Spike(int,Network);
-		void Calculate_Neural_Activity(int,Network,vector<int>*,int,vector<double>*,int);
+		void Calculate_Neural_Activity(int,Network&,vector<int>*,int,vector<double>*,int);
+		void Calculate_Plasticity_Weights(int ,int ,int,Network&,double,int);
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -392,6 +401,12 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->label22 = (gcnew System::Windows::Forms::Label());
 				 this->textBox12 = (gcnew System::Windows::Forms::TextBox());
 				 this->panel8 = (gcnew System::Windows::Forms::Panel());
+				 this->button17 = (gcnew System::Windows::Forms::Button());
+				 this->checkBox7 = (gcnew System::Windows::Forms::CheckBox());
+				 this->label32 = (gcnew System::Windows::Forms::Label());
+				 this->label31 = (gcnew System::Windows::Forms::Label());
+				 this->textBox19 = (gcnew System::Windows::Forms::TextBox());
+				 this->textBox18 = (gcnew System::Windows::Forms::TextBox());
 				 this->label28 = (gcnew System::Windows::Forms::Label());
 				 this->textBox17 = (gcnew System::Windows::Forms::TextBox());
 				 this->label26 = (gcnew System::Windows::Forms::Label());
@@ -509,7 +524,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->button1->Enabled = false;
 				 this->button1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(162)));
-				 this->button1->Location = System::Drawing::Point(1077, 487);
+				 this->button1->Location = System::Drawing::Point(1259, 487);
 				 this->button1->Name = L"button1";
 				 this->button1->Size = System::Drawing::Size(98, 56);
 				 this->button1->TabIndex = 1;
@@ -530,7 +545,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // panel1
 				 // 
-				 this->panel1->BackColor = System::Drawing::SystemColors::HotTrack;
+				 this->panel1->BackColor = System::Drawing::SystemColors::GrayText;
 				 this->panel1->Controls->Add(this->checkBox6);
 				 this->panel1->Controls->Add(this->checkBox4);
 				 this->panel1->Controls->Add(this->button9);
@@ -623,7 +638,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // panel6
 				 // 
-				 this->panel6->BackColor = System::Drawing::Color::Red;
+				 this->panel6->BackColor = System::Drawing::Color::Silver;
 				 this->panel6->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 				 this->panel6->Controls->Add(this->radioButton8);
 				 this->panel6->Controls->Add(this->radioButton9);
@@ -677,7 +692,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // panel5
 				 // 
-				 this->panel5->BackColor = System::Drawing::Color::Red;
+				 this->panel5->BackColor = System::Drawing::Color::Silver;
 				 this->panel5->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 				 this->panel5->Controls->Add(this->radioButton7);
 				 this->panel5->Controls->Add(this->label15);
@@ -721,7 +736,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // panel4
 				 // 
-				 this->panel4->BackColor = System::Drawing::Color::Red;
+				 this->panel4->BackColor = System::Drawing::Color::Silver;
 				 this->panel4->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 				 this->panel4->Controls->Add(this->radioButton4);
 				 this->panel4->Controls->Add(this->radioButton3);
@@ -765,7 +780,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // panel3
 				 // 
-				 this->panel3->BackColor = System::Drawing::Color::Red;
+				 this->panel3->BackColor = System::Drawing::Color::Silver;
 				 this->panel3->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 				 this->panel3->Controls->Add(this->label13);
 				 this->panel3->Controls->Add(this->radioButton2);
@@ -901,7 +916,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // panel2
 				 // 
-				 this->panel2->BackColor = System::Drawing::SystemColors::Highlight;
+				 this->panel2->BackColor = System::Drawing::SystemColors::GrayText;
 				 this->panel2->Controls->Add(this->checkBox3);
 				 this->panel2->Controls->Add(this->button6);
 				 this->panel2->Controls->Add(this->button4);
@@ -1039,7 +1054,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // pictureBox1
 				 // 
 				 this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-				 this->pictureBox1->Location = System::Drawing::Point(1147, 27);
+				 this->pictureBox1->Location = System::Drawing::Point(1147, 650);
 				 this->pictureBox1->Name = L"pictureBox1";
 				 this->pictureBox1->Size = System::Drawing::Size(223, 99);
 				 this->pictureBox1->TabIndex = 5;
@@ -1066,7 +1081,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label9
 				 // 
 				 this->label9->AutoSize = true;
-				 this->label9->Location = System::Drawing::Point(658, 30);
+				 this->label9->Location = System::Drawing::Point(871, 30);
 				 this->label9->Name = L"label9";
 				 this->label9->Size = System::Drawing::Size(108, 13);
 				 this->label9->TabIndex = 10;
@@ -1091,7 +1106,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // pictureBox2
 				 // 
 				 this->pictureBox2->BackColor = System::Drawing::SystemColors::ButtonFace;
-				 this->pictureBox2->Location = System::Drawing::Point(658, 47);
+				 this->pictureBox2->Location = System::Drawing::Point(874, 47);
 				 this->pictureBox2->Name = L"pictureBox2";
 				 this->pictureBox2->Size = System::Drawing::Size(483, 300);
 				 this->pictureBox2->TabIndex = 17;
@@ -1103,7 +1118,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->button7->BackColor = System::Drawing::SystemColors::ButtonShadow;
 				 this->button7->Font = (gcnew System::Drawing::Font(L"Times New Roman", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(162)));
-				 this->button7->Location = System::Drawing::Point(933, 481);
+				 this->button7->Location = System::Drawing::Point(1121, 487);
 				 this->button7->Name = L"button7";
 				 this->button7->Size = System::Drawing::Size(119, 62);
 				 this->button7->TabIndex = 18;
@@ -1122,20 +1137,20 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->panel7->BackColor = System::Drawing::SystemColors::InfoText;
 				 this->panel7->Controls->Add(this->TimeL);
 				 this->panel7->Controls->Add(this->label3);
-				 this->panel7->Location = System::Drawing::Point(1077, 357);
+				 this->panel7->Location = System::Drawing::Point(1045, 357);
 				 this->panel7->Name = L"panel7";
-				 this->panel7->Size = System::Drawing::Size(293, 72);
+				 this->panel7->Size = System::Drawing::Size(313, 72);
 				 this->panel7->TabIndex = 21;
 				 // 
 				 // TimeL
 				 // 
 				 this->TimeL->AutoSize = true;
-				 this->TimeL->Font = (gcnew System::Drawing::Font(L"Courier New", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				 this->TimeL->Font = (gcnew System::Drawing::Font(L"Courier New", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(162)));
 				 this->TimeL->ForeColor = System::Drawing::Color::Red;
-				 this->TimeL->Location = System::Drawing::Point(188, 14);
+				 this->TimeL->Location = System::Drawing::Point(181, 19);
 				 this->TimeL->Name = L"TimeL";
-				 this->TimeL->Size = System::Drawing::Size(40, 27);
+				 this->TimeL->Size = System::Drawing::Size(32, 21);
 				 this->TimeL->TabIndex = 22;
 				 this->TimeL->Text = L"0 ";
 				 // 
@@ -1146,7 +1161,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->label3->Font = (gcnew System::Drawing::Font(L"Courier New", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(162)));
 				 this->label3->ForeColor = System::Drawing::SystemColors::Info;
-				 this->label3->Location = System::Drawing::Point(23, 20);
+				 this->label3->Location = System::Drawing::Point(12, 20);
 				 this->label3->Name = L"label3";
 				 this->label3->Size = System::Drawing::Size(168, 18);
 				 this->label3->TabIndex = 21;
@@ -1154,7 +1169,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // textBox9
 				 // 
-				 this->textBox9->Location = System::Drawing::Point(660, 376);
+				 this->textBox9->Location = System::Drawing::Point(1092, 570);
 				 this->textBox9->Name = L"textBox9";
 				 this->textBox9->Size = System::Drawing::Size(100, 20);
 				 this->textBox9->TabIndex = 22;
@@ -1163,7 +1178,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // textBox10
 				 // 
-				 this->textBox10->Location = System::Drawing::Point(660, 416);
+				 this->textBox10->Location = System::Drawing::Point(1092, 610);
 				 this->textBox10->Name = L"textBox10";
 				 this->textBox10->Size = System::Drawing::Size(100, 20);
 				 this->textBox10->TabIndex = 23;
@@ -1173,7 +1188,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label17
 				 // 
 				 this->label17->AutoSize = true;
-				 this->label17->Location = System::Drawing::Point(660, 357);
+				 this->label17->Location = System::Drawing::Point(1092, 551);
 				 this->label17->Name = L"label17";
 				 this->label17->Size = System::Drawing::Size(102, 13);
 				 this->label17->TabIndex = 24;
@@ -1182,7 +1197,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label18
 				 // 
 				 this->label18->AutoSize = true;
-				 this->label18->Location = System::Drawing::Point(675, 401);
+				 this->label18->Location = System::Drawing::Point(1107, 595);
 				 this->label18->Name = L"label18";
 				 this->label18->Size = System::Drawing::Size(30, 13);
 				 this->label18->TabIndex = 25;
@@ -1191,12 +1206,12 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label19
 				 // 
 				 this->label19->AutoSize = true;
-				 this->label19->Font = (gcnew System::Drawing::Font(L"Courier New", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				 this->label19->Font = (gcnew System::Drawing::Font(L"Courier New", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(162)));
 				 this->label19->ForeColor = System::Drawing::Color::Red;
-				 this->label19->Location = System::Drawing::Point(1321, 444);
+				 this->label19->Location = System::Drawing::Point(1286, 447);
 				 this->label19->Name = L"label19";
-				 this->label19->Size = System::Drawing::Size(40, 27);
+				 this->label19->Size = System::Drawing::Size(32, 21);
 				 this->label19->TabIndex = 26;
 				 this->label19->Text = L"0 ";
 				 // 
@@ -1207,7 +1222,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->label20->Font = (gcnew System::Drawing::Font(L"Courier New", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 					 static_cast<System::Byte>(162)));
 				 this->label20->ForeColor = System::Drawing::SystemColors::Info;
-				 this->label20->Location = System::Drawing::Point(1074, 448);
+				 this->label20->Location = System::Drawing::Point(1043, 448);
 				 this->label20->Name = L"label20";
 				 this->label20->Size = System::Drawing::Size(248, 18);
 				 this->label20->TabIndex = 27;
@@ -1235,7 +1250,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // button12
 				 // 
-				 this->button12->Location = System::Drawing::Point(678, 495);
+				 this->button12->Location = System::Drawing::Point(603, 567);
 				 this->button12->Name = L"button12";
 				 this->button12->Size = System::Drawing::Size(75, 23);
 				 this->button12->TabIndex = 30;
@@ -1246,7 +1261,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label21
 				 // 
 				 this->label21->AutoSize = true;
-				 this->label21->Location = System::Drawing::Point(790, 357);
+				 this->label21->Location = System::Drawing::Point(1222, 551);
 				 this->label21->Name = L"label21";
 				 this->label21->Size = System::Drawing::Size(38, 13);
 				 this->label21->TabIndex = 32;
@@ -1254,7 +1269,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // textBox11
 				 // 
-				 this->textBox11->Location = System::Drawing::Point(790, 376);
+				 this->textBox11->Location = System::Drawing::Point(1222, 570);
 				 this->textBox11->Name = L"textBox11";
 				 this->textBox11->Size = System::Drawing::Size(100, 20);
 				 this->textBox11->TabIndex = 31;
@@ -1266,7 +1281,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label22
 				 // 
 				 this->label22->AutoSize = true;
-				 this->label22->Location = System::Drawing::Point(791, 400);
+				 this->label22->Location = System::Drawing::Point(1223, 594);
 				 this->label22->Name = L"label22";
 				 this->label22->Size = System::Drawing::Size(38, 13);
 				 this->label22->TabIndex = 34;
@@ -1274,7 +1289,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // textBox12
 				 // 
-				 this->textBox12->Location = System::Drawing::Point(790, 416);
+				 this->textBox12->Location = System::Drawing::Point(1222, 610);
 				 this->textBox12->Name = L"textBox12";
 				 this->textBox12->Size = System::Drawing::Size(100, 20);
 				 this->textBox12->TabIndex = 33;
@@ -1285,7 +1300,13 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // panel8
 				 // 
-				 this->panel8->BackColor = System::Drawing::SystemColors::Highlight;
+				 this->panel8->BackColor = System::Drawing::SystemColors::GrayText;
+				 this->panel8->Controls->Add(this->button17);
+				 this->panel8->Controls->Add(this->checkBox7);
+				 this->panel8->Controls->Add(this->label32);
+				 this->panel8->Controls->Add(this->label31);
+				 this->panel8->Controls->Add(this->textBox19);
+				 this->panel8->Controls->Add(this->textBox18);
 				 this->panel8->Controls->Add(this->label28);
 				 this->panel8->Controls->Add(this->textBox17);
 				 this->panel8->Controls->Add(this->label26);
@@ -1305,13 +1326,75 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->panel8->Enabled = false;
 				 this->panel8->Location = System::Drawing::Point(345, 293);
 				 this->panel8->Name = L"panel8";
-				 this->panel8->Size = System::Drawing::Size(307, 230);
+				 this->panel8->Size = System::Drawing::Size(523, 230);
 				 this->panel8->TabIndex = 35;
+				 // 
+				 // button17
+				 // 
+				 this->button17->Enabled = false;
+				 this->button17->Location = System::Drawing::Point(403, 7);
+				 this->button17->Name = L"button17";
+				 this->button17->Size = System::Drawing::Size(56, 23);
+				 this->button17->TabIndex = 33;
+				 this->button17->Text = L"Open";
+				 this->button17->UseVisualStyleBackColor = true;
+				 this->button17->Click += gcnew System::EventHandler(this, &MyForm1::button17_Click);
+				 // 
+				 // checkBox7
+				 // 
+				 this->checkBox7->AutoSize = true;
+				 this->checkBox7->Location = System::Drawing::Point(275, 11);
+				 this->checkBox7->Name = L"checkBox7";
+				 this->checkBox7->Size = System::Drawing::Size(110, 17);
+				 this->checkBox7->TabIndex = 32;
+				 this->checkBox7->Text = L"Custom Locations";
+				 this->checkBox7->UseVisualStyleBackColor = true;
+				 this->checkBox7->CheckedChanged += gcnew System::EventHandler(this, &MyForm1::checkBox7_CheckedChanged);
+				 // 
+				 // label32
+				 // 
+				 this->label32->AutoSize = true;
+				 this->label32->Location = System::Drawing::Point(345, 172);
+				 this->label32->Name = L"label32";
+				 this->label32->Size = System::Drawing::Size(20, 13);
+				 this->label32->TabIndex = 31;
+				 this->label32->Text = L"Z2";
+				 // 
+				 // label31
+				 // 
+				 this->label31->AutoSize = true;
+				 this->label31->Location = System::Drawing::Point(166, 173);
+				 this->label31->Name = L"label31";
+				 this->label31->Size = System::Drawing::Size(20, 13);
+				 this->label31->TabIndex = 30;
+				 this->label31->Text = L"Z1";
+				 // 
+				 // textBox19
+				 // 
+				 this->textBox19->Location = System::Drawing::Point(333, 149);
+				 this->textBox19->Name = L"textBox19";
+				 this->textBox19->Size = System::Drawing::Size(32, 20);
+				 this->textBox19->TabIndex = 29;
+				 this->textBox19->Text = L"0";
+				 this->textBox19->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+				 this->textBox19->TextChanged += gcnew System::EventHandler(this, &MyForm1::textBox19_TextChanged);
+				 this->textBox19->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm1::textBox19_KeyPress);
+				 // 
+				 // textBox18
+				 // 
+				 this->textBox18->Location = System::Drawing::Point(157, 151);
+				 this->textBox18->Name = L"textBox18";
+				 this->textBox18->Size = System::Drawing::Size(32, 20);
+				 this->textBox18->TabIndex = 28;
+				 this->textBox18->Text = L"0";
+				 this->textBox18->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+				 this->textBox18->TextChanged += gcnew System::EventHandler(this, &MyForm1::textBox18_TextChanged);
+				 this->textBox18->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm1::textBox18_KeyPress);
 				 // 
 				 // label28
 				 // 
 				 this->label28->AutoSize = true;
-				 this->label28->Location = System::Drawing::Point(163, 207);
+				 this->label28->Location = System::Drawing::Point(424, 172);
 				 this->label28->Name = L"label28";
 				 this->label28->Size = System::Drawing::Size(82, 13);
 				 this->label28->TabIndex = 27;
@@ -1319,7 +1402,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // textBox17
 				 // 
-				 this->textBox17->Location = System::Drawing::Point(166, 188);
+				 this->textBox17->Location = System::Drawing::Point(447, 149);
 				 this->textBox17->Name = L"textBox17";
 				 this->textBox17->Size = System::Drawing::Size(32, 20);
 				 this->textBox17->TabIndex = 26;
@@ -1330,7 +1413,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label26
 				 // 
 				 this->label26->AutoSize = true;
-				 this->label26->Location = System::Drawing::Point(236, 172);
+				 this->label26->Location = System::Drawing::Point(308, 172);
 				 this->label26->Name = L"label26";
 				 this->label26->Size = System::Drawing::Size(20, 13);
 				 this->label26->TabIndex = 25;
@@ -1338,7 +1421,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // textBox16
 				 // 
-				 this->textBox16->Location = System::Drawing::Point(236, 150);
+				 this->textBox16->Location = System::Drawing::Point(296, 150);
 				 this->textBox16->Name = L"textBox16";
 				 this->textBox16->Size = System::Drawing::Size(32, 20);
 				 this->textBox16->TabIndex = 24;
@@ -1371,7 +1454,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // button14
 				 // 
-				 this->button14->Location = System::Drawing::Point(94, 194);
+				 this->button14->Location = System::Drawing::Point(106, 194);
 				 this->button14->Name = L"button14";
 				 this->button14->Size = System::Drawing::Size(56, 23);
 				 this->button14->TabIndex = 21;
@@ -1392,7 +1475,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label23
 				 // 
 				 this->label23->AutoSize = true;
-				 this->label23->Location = System::Drawing::Point(202, 172);
+				 this->label23->Location = System::Drawing::Point(267, 172);
 				 this->label23->Name = L"label23";
 				 this->label23->Size = System::Drawing::Size(20, 13);
 				 this->label23->TabIndex = 18;
@@ -1403,12 +1486,12 @@ private: System::Windows::Forms::Timer^  timer1;
 				 this->LayerList->FormattingEnabled = true;
 				 this->LayerList->Location = System::Drawing::Point(2, 35);
 				 this->LayerList->Name = L"LayerList";
-				 this->LayerList->Size = System::Drawing::Size(302, 108);
+				 this->LayerList->Size = System::Drawing::Size(518, 108);
 				 this->LayerList->TabIndex = 12;
 				 // 
 				 // textBox13
 				 // 
-				 this->textBox13->Location = System::Drawing::Point(199, 150);
+				 this->textBox13->Location = System::Drawing::Point(259, 150);
 				 this->textBox13->Name = L"textBox13";
 				 this->textBox13->Size = System::Drawing::Size(32, 20);
 				 this->textBox13->TabIndex = 19;
@@ -1441,7 +1524,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label24
 				 // 
 				 this->label24->AutoSize = true;
-				 this->label24->Location = System::Drawing::Point(82, 172);
+				 this->label24->Location = System::Drawing::Point(89, 172);
 				 this->label24->Name = L"label24";
 				 this->label24->Size = System::Drawing::Size(20, 13);
 				 this->label24->TabIndex = 14;
@@ -1461,7 +1544,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label25
 				 // 
 				 this->label25->AutoSize = true;
-				 this->label25->Location = System::Drawing::Point(120, 172);
+				 this->label25->Location = System::Drawing::Point(126, 172);
 				 this->label25->Name = L"label25";
 				 this->label25->Size = System::Drawing::Size(20, 13);
 				 this->label25->TabIndex = 15;
@@ -1479,7 +1562,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label29
 				 // 
 				 this->label29->AutoSize = true;
-				 this->label29->Location = System::Drawing::Point(896, 379);
+				 this->label29->Location = System::Drawing::Point(1328, 573);
 				 this->label29->Name = L"label29";
 				 this->label29->Size = System::Drawing::Size(15, 13);
 				 this->label29->TabIndex = 37;
@@ -1488,7 +1571,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // label30
 				 // 
 				 this->label30->AutoSize = true;
-				 this->label30->Location = System::Drawing::Point(896, 419);
+				 this->label30->Location = System::Drawing::Point(1328, 613);
 				 this->label30->Name = L"label30";
 				 this->label30->Size = System::Drawing::Size(15, 13);
 				 this->label30->TabIndex = 38;
@@ -1496,7 +1579,7 @@ private: System::Windows::Forms::Timer^  timer1;
 				 // 
 				 // FileManager
 				 // 
-				 this->FileManager->Location = System::Drawing::Point(758, 441);
+				 this->FileManager->Location = System::Drawing::Point(874, 357);
 				 this->FileManager->Name = L"FileManager";
 				 treeNode1->Name = L"Node0";
 				 treeNode1->Text = L"Network";
@@ -1612,28 +1695,38 @@ private: System::Windows::Forms::Timer^  timer1;
 			 vector<double>* LayTemp2;
 			 vector<int>* LayIN;
 			 vector<Spike>* Neuron_Spike;
-
+			 vector<int>* amp_val;
+			 vector<int>* glut_val;
 			 ZoomPic^objPic = gcnew ZoomPic();
 			 LayerProperty^obj1 = gcnew LayerProperty();
 			 NetworkProperty^objNet= gcnew NetworkProperty();
+			 ParameterConfigurations^param1 = gcnew ParameterConfigurations();
+
 			 vector<double>* NerCORD;
 			 vector<double>* NerCORDTemp;
 			 vector<double>* Spike_array;
 			 vector<int>* ConnectionMap;
 			 vector<int>* LayerConnection;
+			 int Loc = 0;
 			 int Ref=0;
 			 int setIntra=3;
 			 int setInter=3;
 			 int setType=3;
 			 int setReg=3;
 			 Network* NA;
-			float Xlimit=1 ;
-			float Ylimit=1;
+			double delta_t=0.1;
+			double ind_positive = 0.2;
+			double ind_negative = -0.1;
+			double tao_positive = 12.2;
+			double tao_negative = 13.6;
+			float Xlimit=0.0001; // m
+			float Ylimit=0.0001; // m
+			float Zlimit=0.0001; // m
 			 int Iter=1;
 			 int Cust=0;
-			 double SimTime=5;
+			 double SimTime=2;
 			 int TotalN=0;
-			 bool Plasticity;
+			 bool Plasticity=false;
 			 bool Myelination;
 			 int TypeN=0;
 			 int LayerN=0;
@@ -1646,13 +1739,16 @@ private: System::Windows::Forms::Timer^  timer1;
 			 bool regular=1;
 			 bool interfeed=0;
 			 bool intrafeed=0;
-			
+			 Network *New_N;
+			double PlasticityThresholdTime = 0.001;
+
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		double sumClock = 0;
 		int ccc = 0;
 		int cx = 0;
 		Network N;
+
 		vector<vector<double>> LayEL;
 		
 		int k = InputList->Items->Count;
@@ -1663,7 +1759,7 @@ private: System::Windows::Forms::Timer^  timer1;
 			ConnTemp[sf].resize(TotalN);
 		}
 		for (int sf = 0; sf < LayerN; sf++) {
-			LayTemp[sf].resize(5);
+			LayTemp[sf].resize(7);
 		}
 
 		if (Cust == 1)
@@ -1678,6 +1774,8 @@ private: System::Windows::Forms::Timer^  timer1;
 				double y1;
 				double x2;
 				double y2;
+				double z1;
+				double z2;
 				int NX;
 				std::string str1;
 				std::string str2;
@@ -1686,6 +1784,8 @@ private: System::Windows::Forms::Timer^  timer1;
 				std::string str5;
 				std::string str6;
 				std::string str7;
+				std::string str8;
+				std::string str9;
 
 
 				LayerList->SetSelected(hby, true);
@@ -1697,18 +1797,25 @@ private: System::Windows::Forms::Timer^  timer1;
 
 
 				std::stringstream ss(str);
-				ss >> str1 >> str2 >> x1 >> str3 >> y1 >> str12 >> str13 >> x2 >> str3 >> y2 >> str5 >> str6 >> str7 >> NX;
+				ss >> str1 >> str2 >> x1 >> str3 >> y1 >> str12 >> z1>> str8 >> str13 >> x2 >> str3 >> y2 >> str5>> z2 >>str9>> str6 >> str7 >> NX;
 				LayTemp[hby][0] = x1;
 				LayTemp[hby][1] = y1;
 				LayTemp[hby][2] = x2;
 				LayTemp[hby][3] = y2;
 				LayTemp[hby][4] = NX;
+				LayTemp[hby][5] = z1;
+				LayTemp[hby][6] = z2;
+
 				LayEL.push_back(vector<double>());
 				LayEL[hby].push_back(x1);
 				LayEL[hby].push_back(y1);
 				LayEL[hby].push_back(x2);
 				LayEL[hby].push_back(y2);
 				LayEL[hby].push_back(NX);
+				LayEL[hby].push_back(z1);
+				LayEL[hby].push_back(z2);
+
+
 
 
 			}
@@ -1789,12 +1896,13 @@ private: System::Windows::Forms::Timer^  timer1;
 			EventLog->Items->Clear();
 			clock_t tStart = clock();
 			if (Cust == 0)
-				N.Initialize_Network(TotalN, iNeuron, oNeuron, TypeN, LayerN, regular, interfeed, intrafeed, Prob, GNet, Xlimit, Ylimit, Cust, LayEL);
+				N.Initialize_Network(TotalN, iNeuron, oNeuron, TypeN, LayerN, regular, interfeed, intrafeed, Prob, GNet, Xlimit, Ylimit, Cust, LayEL,Zlimit);
 			else if (Cust == 1)
 				N.Init_Custom(TotalN,LayerN,ConnectionMap,NerCORD);
 				cout << "Initialized " << endl;
 
-				
+				New_N = &N;
+
 				for (int rr = 0; rr < TotalN; rr++)
 				{
 					for (int cc = 0; cc < TotalN; cc++)
@@ -1880,12 +1988,95 @@ private: System::Windows::Forms::Timer^  timer1;
 				}
 
 
-
-		//	N.Start_Network(TotalN, N.LUT1, N.Row);
-				
-				Start_Net(TotalN, N.LUT1, N.Row, N,SimTime);
-				cout << "GELDIK" << endl;
+				vector<double> Out_Spike;
 			
+		//	N.Start_Network(TotalN, N.LUT1, N.Row);
+				Start_Net(TotalN, New_N->LUT1, New_N->Row, *New_N, SimTime);
+
+				for (int i = 0; i < TotalN; i++)
+				{
+					
+						cout << New_N->CordVEC[i].X_axis<<" "<< New_N->CordVEC[i].Y_axis <<" " <<New_N->CordVEC[i].Z_axis <<endl;
+					
+				}
+
+				int select = TotalN-1;
+
+
+				for (int i = 0; i < New_N->NerVEC[select].Spike_vector.size(); i++) {
+					Out_Spike.push_back(New_N->NerVEC[select].Spike_vector[i].Spike_time);
+				}
+				cout << "Kral Yilmaz" << "\n";
+				int nht = 0;
+				for (int i = 0; i < New_N->NerVEC[select].Spike_vector.size(); i++) {
+					cout << Out_Spike[i] << " ";
+					nht++;
+				}
+				
+				StreamWriter^ outfile2 = gcnew StreamWriter("NewPage20VoltOut.txt");
+				for (int j = 0; j < nht; j++)
+				{
+					
+						String^ ss = Convert::ToString(Out_Spike[j]);
+						ss = ss->Replace(",", ".");
+						outfile2->Write(ss + "  ");
+					
+				}
+				outfile2->Close();
+				cout << "AMPA weights Neuron 4  " <<endl;
+			/*	for (int i = 0; i<New_N->NerVEC[3].synapse.size(); i++) {
+					cout << " Synapse between 4 and "<<New_N->NerVEC[3].synapse[i].out_ID <<" ";
+
+					for (int j=0; j< New_N->NerVEC[3].synapse[i].getPointer()->size();j++){
+						cout << New_N->NerVEC[3].synapse[i].getPointer()->at(j) << " ";
+					}
+					cout << endl;
+				}*/
+				cout << "asa " << New_N->NerVEC[0].Spike_num << endl;
+				//Start_Net(TotalN, N.LUT1, N.Row, N,SimTime);
+
+				//  THIS PART IS FOR DETERMINING INPUT-OUTPUT OF CONTRIBUTION CALCULATION
+				cout << "GELDIK" << endl;
+			//	int o1 = New_N->NerVEC[5].Spike_num;
+			//	int o2 = New_N->NerVEC[6].Spike_num;
+			//	int outsize = o1 + o2;
+				int insize = 4;
+			//	cout << "Outsiz= " << outsize << endl;
+				vector<int>* Inp_Spike;
+				//Inp_Spike = new vector<int>[insize];
+				//Out_Spike = new vector<double>[outsize];
+
+				/*for (int sf = 0; sf < outsize; sf++) {
+					Out_Spike[sf].resize(3);
+
+				}
+				for (int sf = 0; sf < o1; sf++) {
+					Out_Spike[sf][0] = 6;
+					Out_Spike[sf][1] = sf + 1;
+
+				}
+				for (int sf = o1; sf < outsize; sf++) {
+					Out_Spike[sf][0] = 7;
+					Out_Spike[sf][1] = sf + 1 - o1;
+
+				}*/
+			/*	for (int sf = 0; sf < insize; sf++) {
+					Inp_Spike[sf].resize(2);
+				}
+				Inp_Spike[0][0] = 1;
+				Inp_Spike[0][1] = 1;
+				Inp_Spike[1][0] = 1;
+				Inp_Spike[1][1] = 2;
+				Inp_Spike[2][0] = 2;
+				Inp_Spike[2][1] = 1;
+				Inp_Spike[3][0] = 2;
+				Inp_Spike[3][1] = 3;*/
+				
+				// END OF INITALIZATION OF INPUT-OUTPUT
+
+				// CONTRUBITON CALCULATION FUNCTION
+				// Calculate_Neural_Activity(TotalN, *New_N, Inp_Spike, insize, Out_Spike, outsize);
+				// END CONTRIBUTION CALCULATION
 
 				int kc = EventLog->Items->Count;
 				vector<vector<double>> DatM;
@@ -1997,8 +2188,7 @@ private: System::Windows::Forms::Timer^  timer1;
 
 	
 	private: System::Void parameterPropertiesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-		ParameterConfigurations^obj1 = gcnew ParameterConfigurations();
-		obj1->ShowDialog();
+		param1->ShowDialog();
 
 
 	}
@@ -2060,7 +2250,7 @@ private: System::Void button6_Click_1(System::Object^  sender, System::EventArgs
 	int cntrl = 0;
 	vector<vector<double>> INP;
 	String^V2 = " mV at ";
-	String^T2 = " s to Neuron number ";
+	String^T2 = " ms to Neuron number ";
 	String^N2 = " is received";
 	while (fileIN.good()) {
 		cntrl = 1;
@@ -2647,19 +2837,23 @@ private: System::Void button16_Click(System::Object^  sender, System::EventArgs^
 	double y1 = Convert::ToDouble(textBox15->Text->Replace(".", ","));
 	double x2 = Convert::ToDouble(textBox13->Text->Replace(".", ","));
 	double y2 = Convert::ToDouble(textBox16->Text->Replace(".", ","));
-	int LayN = Convert::ToInt32(textBox17->Text);
+	double z1 = Convert::ToDouble(textBox18->Text->Replace(".", ","));
+	double z2 = Convert::ToDouble(textBox19->Text->Replace(".", ","));
+	int  LayN = Convert::ToInt32(textBox17->Text);
 	double x3;
 	double x4;
 	double y3;
 	double y4;
+	double z3;
+	double z4;
 	String^V2 = "From point ";
 	String^T2 = " to point ";
 	String^N2 = " with Neuron Number ";
 int	kp = LayerList->Items->Count;
 if (kp < 1) {
-	 if (x2 > x1 && y2 > y1 && LayN > 0) {
+	 if (x2 > x1 && y2 > y1 && z2>z1 && LayN > 0) {
 		// Create Input Event
-		this->LayerList->Items->Add(V2 + this->textBox14->Text + " , " + this->textBox15->Text + T2 + this->textBox13->Text + " , " + this->textBox16->Text + N2 + this->textBox17->Text);
+		this->LayerList->Items->Add(V2 + this->textBox14->Text + " , " + this->textBox15->Text+ " , "+this->textBox18->Text + T2 + this->textBox13->Text + " , " + this->textBox16->Text +" , "+ this->textBox19->Text + N2 + this->textBox17->Text);
 		TotalN = TotalN + LayN;
 		LayerN = LayerN + 1;
 		textBox6->Text = Convert::ToString(LayerN);
@@ -2674,11 +2868,11 @@ if (kp < 1) {
 		ConnectionMap=new vector<int>[TotalN];
 		LayerConnection= new vector<int>[LayerN];
 		for (int sf = 0; sf < LayerN; sf++) {
-			LayTemp2[sf].resize(5);
+			LayTemp2[sf].resize(7);
 			LayerConnection[sf].resize(LayerN);
 		}
 		for (int sf = 0; sf < TotalN; sf++) {
-			NerCORD[sf].resize(2);
+			NerCORD[sf].resize(3);
 			ConnectionMap[sf].resize(TotalN);
 		}
 		
@@ -2710,6 +2904,8 @@ if (kp < 1) {
 			std::string str1;
 			std::string str2;
 			std::string str3;
+			std::string str4;
+			std::string str5;
 			std::string str12;
 			std::string str13;
 			
@@ -2720,16 +2916,16 @@ if (kp < 1) {
 
 
 			std::stringstream ss(str);
-			ss >> str1 >> str2 >> x3 >> str3 >> y3 >> str12 >> str13 >> x4 >> str3 >> y4;
+			ss >> str1 >> str2 >> x3 >> str3 >> y3 >> str4 >>z3 >> str12 >> str13 >> x4 >> str3 >> y4>> str5>> z4;
 
-			
-			if (x3<=x1 && x1<x4 && y1<y3 && y3<y2)
+			// --------------------------------------CHANGE HERE------------------------------------------------- //
+			if (x3<=x1   && x1<x4   && y1<y3 && y3<y2   )
 				chekc = 1;
-			if (y3 <= y1 && y1 < y4 && x1<x3 && x3 < x2)
+			if (y3 <= y1 && y1 < y4 && x1<x3 && x3 < x2  )
 				chekc = 2;
-			if (x1<x3 && y1<y3 && x2>x3 && y2>y3)
+			if (x1<x3    && y1<y3   && x2>x3 && y2>y3  )
 				chekc = 3;						
-			if (x3 <= x1 && x1<x4 && y3<=y1 &&  y1<y4)
+			if (x3 <= x1 && x1<x4   && y3<=y1&&  y1<y4  )
 				chekc = 4;
 			if (chekc > 0)
 			{
@@ -2737,7 +2933,7 @@ if (kp < 1) {
 				chekc = 0;
 			}
 		
-
+			// --------------------------------------CHANGE HERE------------------------------------------------- //
 
 		}
 		
@@ -2753,8 +2949,8 @@ if (kp < 1) {
 			else if (con>0)
 				MessageBox::Show(Convert::ToString("No Intersection is allowed between layers (with Layer " + con + ")"));
 			else {
+				this->LayerList->Items->Add(V2 + this->textBox14->Text + " , " + this->textBox15->Text + " , " + this->textBox18->Text + T2 + this->textBox13->Text + " , " + this->textBox16->Text + " , " + this->textBox19->Text + N2 + this->textBox17->Text);
 
-				this->LayerList->Items->Add(V2 + this->textBox14->Text + " , " + this->textBox15->Text + T2 + this->textBox13->Text + " , " + this->textBox16->Text + N2 + this->textBox17->Text);
 				TotalN = TotalN + LayN;
 				LayerN = LayerN + 1;
 				textBox6->Text = Convert::ToString(LayerN);
@@ -2769,11 +2965,11 @@ if (kp < 1) {
 				ConnectionMap = new vector<int>[TotalN];
 				LayerConnection = new vector<int>[LayerN];
 				for (int sf = 0; sf < LayerN; sf++) {
-					LayTemp2[sf].resize(5);
+					LayTemp2[sf].resize(7);
 					LayerConnection[sf].resize(LayerN);
 				}
 				for (int sf = 0; sf < TotalN; sf++) {
-					NerCORD[sf].resize(2);
+					NerCORD[sf].resize(3);
 					ConnectionMap[sf].resize(TotalN);
 				}
 			
@@ -2851,6 +3047,7 @@ private: System::Void button14_Click(System::Object^  sender, System::EventArgs^
 	this->LayerList->Items->Clear();
 	TotalN = 0;
 	LayerN = 0;
+	FileManager->Nodes[0]->Nodes->Clear();
 
 }
 private: System::Void button15_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -2859,6 +3056,8 @@ private: System::Void button15_Click(System::Object^  sender, System::EventArgs^
 	double x4;
 	double y3;
 	double y4;
+	double z3;
+	double z4;
 	int NX;
 	String^strr = LayerList->SelectedItem->ToString();
 	int fM=LayerList->SelectedIndex;
@@ -2870,6 +3069,8 @@ private: System::Void button15_Click(System::Object^  sender, System::EventArgs^
 	std::string str5;
 	std::string str6;
 	std::string str7;
+	std::string str8;
+	std::string str9;
 	String^ strk = strr->Replace(",", ".");
 
 	std::string str;
@@ -2877,7 +3078,7 @@ private: System::Void button15_Click(System::Object^  sender, System::EventArgs^
 
 
 	std::stringstream ss(str);
-	ss >> str1 >> str2 >> x3 >> str3 >> y3 >> str12 >> str13 >> x4 >> str3 >> y4>>str5>>str6>>str7>>NX;
+	ss >> str1 >> str2 >> x3 >> str3 >> y3 >> str8>> z3 >> str12 >> str13 >> x4 >> str3 >> y4 >>str9 >>z4>>str5 >> str6 >> str7 >> NX;
 	TotalN = TotalN - NX;
 	LayerN = LayerN - 1;
 	FileManager->Nodes[0]->Nodes[fM]->Remove();
@@ -2890,7 +3091,7 @@ private: System::Void button15_Click(System::Object^  sender, System::EventArgs^
 	NerCORDTemp = new vector<double>[TotalN];
 
 	for (int sf = 0; sf < TotalN; sf++) {
-		NerCORDTemp[sf].resize(2);
+		NerCORDTemp[sf].resize(3);
 	}
 	int gg = 0;
 	for (int i = 0; i < fM; i++)
@@ -2910,26 +3111,30 @@ private: System::Void button15_Click(System::Object^  sender, System::EventArgs^
 	{
 		NerCORDTemp[i][0] = NerCORD[i][0];
 		NerCORDTemp[i][1] = NerCORD[i][1];
+		NerCORDTemp[i][2] = NerCORD[i][2];
 	}
 	for (int i = gg; i < TotalN; i++)
 	{
 		NerCORDTemp[i][0] = NerCORD[i+NX][0];
 		NerCORDTemp[i][1] = NerCORD[i+NX][1];
+		NerCORDTemp[i][2] = NerCORD[i + NX][2];
+
 	}
 	NerCORD = new vector<double>[TotalN];
 	
 	for (int sf = 0; sf < TotalN; sf++)
-		NerCORD[sf].resize(2);
+		NerCORD[sf].resize(3);
 
 for(int i=0;i<TotalN;i++)
 {
 	NerCORD[i][0] = NerCORDTemp[i][0];
 	NerCORD[i][1] = NerCORDTemp[i][1];
+	NerCORD[i][2] = NerCORDTemp[i][2];
 }
 	this->LayerList->Items->Remove(this->LayerList->SelectedItem);
 	LayTemp2 = new vector<double>[LayerN];
 	for (int sf = 0; sf < LayerN; sf++) {
-		LayTemp2[sf].resize(5);
+		LayTemp2[sf].resize(7);
 	}
 
 	// For Updating LAYER and NEURON vectors 
@@ -2981,11 +3186,11 @@ private: System::Void button13_Click(System::Object^  sender, System::EventArgs^
 			while (streamA >> x) {
 				INP[Row].push_back(x);
 				Col++;
-				if (Col < 5 && x>1)
+				if (Col < 7 && x>1)
 					Exit = 1;
 			}
 			Row++;
-			if (Col != 5)
+			if (Col != 7)
 				Exit = 1;
 		}
 	}
@@ -2993,6 +3198,8 @@ private: System::Void button13_Click(System::Object^  sender, System::EventArgs^
 	double x2;
 	double y1;
 	double y2;
+	double z1;
+	double z2;
 	String^ op = "";
 	String^err = "";
 	int perr=0;
@@ -3005,12 +3212,17 @@ private: System::Void button13_Click(System::Object^  sender, System::EventArgs^
 			int con = 0;
 			x1 = INP[i - kp][0];
 			y1 = INP[i - kp][1];
-			x2 = INP[i - kp][2];
-			y2 = INP[i - kp][3];
+			z1 = INP[i - kp][2];
+			x2 = INP[i - kp][3];
+			y2 = INP[i - kp][4];
+			z2=  INP[i - kp][5];
+			
 			for (int t = 0; t < sfy; t++) {
 				String^strr;
 				double x3;
 				double y3;
+				double z3;
+				double z4;
 				double x4, y4;
 				LayerList->SetSelected(t, true);
 				strr = LayerList->SelectedItems[0]->ToString();
@@ -3019,7 +3231,11 @@ private: System::Void button13_Click(System::Object^  sender, System::EventArgs^
 				std::string str3;
 				std::string str12;
 				std::string str13;
-			
+				std::string str7;
+				std::string str8;
+				std::string str9;
+
+
 
 				String^ strk = strr->Replace(",", ".");
 
@@ -3028,7 +3244,7 @@ private: System::Void button13_Click(System::Object^  sender, System::EventArgs^
 				
 
 				std::stringstream ss(str);
-				ss >> str1 >> str2 >> x3 >> str3 >> y3 >> str12 >> str13 >> x4 >> str3 >> y4;
+				ss >> str1 >> str2 >> x3 >> str3 >> y3 >> str7>>z3 >>str12 >> str13 >> x4 >> str3 >> y4>>str8>>z4;
 
 
 				if (x3 <= x1 && x1<x4 && y1<y3 && y3<y2)
@@ -3050,15 +3266,15 @@ private: System::Void button13_Click(System::Object^  sender, System::EventArgs^
 
 			}
 			if (con == 0) {
-				LayerList->Items->Add(V2 + INP[i - kp][0] + " , " + System::Convert::ToString(INP[i - kp][1]) + T2 + System::Convert::ToString(INP[i - kp][2]) + " , " + System::Convert::ToString(INP[i - kp][3]) + N2 + System::Convert::ToString(INP[i - kp][4]));
+				LayerList->Items->Add(V2 + INP[i - kp][0] + " , " + System::Convert::ToString(INP[i - kp][1])+ " , " + System::Convert::ToString(INP[i - kp][2]) + T2 + System::Convert::ToString(INP[i - kp][3]) + " , " + System::Convert::ToString(INP[i - kp][4]) + " , " + System::Convert::ToString(INP[i - kp][5]) +N2 + System::Convert::ToString(INP[i - kp][6]));
 				FileManager->Nodes[0]->Nodes->Add(Convert::ToString("Layer " + (i + 1-perr)));
 			
-				for (int j = yy; j < yy + INP[i - kp][4]; j++)
+				for (int j = yy; j < yy + INP[i - kp][6]; j++)
 					FileManager->Nodes[0]->Nodes[i-perr]->Nodes->Add(Convert::ToString("Neuron " + (j + 1)));
 				
-				yy += INP[i - kp][4];
+				yy += INP[i - kp][6];
 				LayerN += 1;
-				TotalN += INP[i - kp][4];
+				TotalN += INP[i - kp][6];
 				sfy += 1;
 			}
 			else {
@@ -3076,11 +3292,11 @@ private: System::Void button13_Click(System::Object^  sender, System::EventArgs^
 		ConnectionMap = new vector<int>[TotalN];
 		LayerConnection = new vector<int>[LayerN];
 		for (int sf = 0; sf < LayerN; sf++) {
-			LayTemp2[sf].resize(5);
+			LayTemp2[sf].resize(7);
 			LayerConnection[sf].resize(LayerN);
 		}
 		for (int sf = 0; sf < TotalN; sf++) {
-			NerCORD[sf].resize(2);
+			NerCORD[sf].resize(3);
 			ConnectionMap[sf].resize(TotalN);
 		}
 		LayerNeuron_ADD(NerCORD, LayTemp2, LayerN, 1,Xlimit,Ylimit);
@@ -3167,7 +3383,7 @@ private: System::Void FileManager_NodeMouseDoubleClick(System::Object^  sender, 
 			objNet->IndexMat[sf][nf]=0;
 	}
 	for (int sf = 0; sf < LayerN; sf++) {
-		obj1->LayTemp3[sf].resize(5);
+		obj1->LayTemp3[sf].resize(7);
 		objNet->LayConn[sf].resize(LayerN);
 	}
 	for (int i = 0; i < LayerN; i++)
@@ -3179,7 +3395,7 @@ private: System::Void FileManager_NodeMouseDoubleClick(System::Object^  sender, 
 		cv += "\n";
 	}
 	for (int a = 0; a < LayerN; a++)
-		for (int b = 0; b < 5; b++)
+		for (int b = 0; b < 7; b++)
 			obj1->LayTemp3[a][b] = LayTemp2[a][b];
 	String^V2 = "From point ";
 	String^T2 = " to point ";
@@ -3285,10 +3501,16 @@ private: System::Void FileManager_NodeMouseDoubleClick(System::Object^  sender, 
 			LayTemp2[indx][2] = obj1->x2;
 			LayTemp2[indx][3] = obj1->y2;
 			LayTemp2[indx][4] = obj1->N;
-			double x11= obj1->x1;
+			LayTemp2[indx][5] = obj1->z1;
+			LayTemp2[indx][6] = obj1->z2;
+
+
+			double x11=  obj1->x1;
 			double y11 = obj1->y1;
 			double x21 = obj1->x2;
 			double y21 = obj1->y2;
+			double z11 = obj1->z1;
+			double z21 = obj1->z2;
 			double NX = obj1->N;
 			int tt = 0;
 			for (int o = 0; o < indx; o++)
@@ -3303,8 +3525,10 @@ private: System::Void FileManager_NodeMouseDoubleClick(System::Object^  sender, 
 			{
 				double xtemp;
 				double ytemp;
+				double ztemp;
 				double xdiff = x21 - x11;
 				double ydiff = y21 - y11;
+				double zdiff = z21 - z11;
 				if (xdiff > 1e-3) {
 					int xr = xdiff * pow(10, 5);
 					xtemp = rand() % xr;
@@ -3341,8 +3565,26 @@ private: System::Void FileManager_NodeMouseDoubleClick(System::Object^  sender, 
 					ytemp = ytemp * Ylimit;
 
 				}
+				if (zdiff > 1e-3) {
+					int zr = zdiff * pow(10, 5);
+					ztemp = rand() % zr;
+					double zzz = z11 * pow(10, 5);
+					ztemp += zzz;
+					ztemp = ztemp / pow(10, 5);
+					ztemp = ztemp * Zlimit;
+				}
+				else if (zdiff > 1e-6) {
+					int zr = zdiff * pow(10, 7);
+					ztemp = rand() % zr;
+					double zzz = z11 * pow(10, 7);
+					ztemp += zzz;
+					ztemp = ztemp / pow(10, 7);
+					ztemp = ztemp * Zlimit;
+
+				}
 				NerCORD[vc][0] = xtemp;
 				NerCORD[vc][1] = ytemp;
+				NerCORD[vc][2] = ztemp;
 			}
 
 
@@ -3415,5 +3657,134 @@ private: System::Void pictureBox2_MouseDown(System::Object^  sender, System::Win
 		objPic->ShowDialog();
 		
 }
+private: System::Void textBox18_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	String^ s = textBox18->Text;
+	Double number;
+	String^ sss = s->Replace(".", ",");
+
+	bool b = Double::TryParse(sss, number);
+	if (textBox18->TextLength != 0 && textBox18->Text != ".") {
+		double	x1 = Convert::ToDouble(sss);
+		if (x1 > 1)
+		{
+			textBox18->Text = Convert::ToString(1);
+		}
+	}
+}
+private: System::Void textBox19_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	String^ s = textBox19->Text;
+	Double number;
+	String^ sss = s->Replace(".", ",");
+
+	bool b = Double::TryParse(sss, number);
+	if (textBox19->TextLength != 0 && textBox19->Text != ".") {
+		double	x1 = Convert::ToDouble(sss);
+		if (x1 > 1)
+		{
+			textBox19->Text = Convert::ToString(1);
+		}
+	}
+}
+private: System::Void textBox18_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	if (e->KeyChar == '.')
+	{
+		if (this->textBox18->Text->Contains(".") && !this->textBox18->SelectedText->Contains("."))
+			e->Handled = true;
+	}
+	// Accept only digits "." and the Backspace character
+	else if (!Char::IsDigit(e->KeyChar) && e->KeyChar != 0x08)
+		e->Handled = true;
+}
+private: System::Void textBox19_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	if (e->KeyChar == '.')
+	{
+		if (this->textBox19->Text->Contains(".") && !this->textBox19->SelectedText->Contains("."))
+			e->Handled = true;
+	}
+	// Accept only digits "." and the Backspace character
+	else if (!Char::IsDigit(e->KeyChar) && e->KeyChar != 0x08)
+		e->Handled = true;
+}
+private: System::Void checkBox7_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	if (checkBox7->Checked == true)
+	{
+		Loc = 1;
+		button17->Enabled = true;
+		
+
+
+
+
+	}
+	else
+	{
+		Loc = 0;
+		button17->Enabled = false;
+		
+	}
+}
+private: System::Void button17_Click(System::Object^  sender, System::EventArgs^  e) {
+	OpenFileDialog^ fd1 = gcnew OpenFileDialog();
+	fd1->Filter = "Text File Only|*.txt";
+	String^fname = "";
+	if (fd1->ShowDialog().Equals(System::Windows::Forms::DialogResult::OK))
+	{
+		fname = fd1->FileName;
+		MessageBox::Show(fname);
+	}
+	string fID;
+	MarshalString(fname, fID);
+	ifstream fileIN(fID);
+
+	int Col = 0;
+	int Row = 0;
+	int Exit = 0;
+	std::string lineA;
+	double x;
+	vector<vector<double>> Cor;
+
+	int cntrl = 0;
+	// Assigning Input Text to INP array which consist the 2 point cordinates and number of neuron inside layer
+	while (fileIN.good()) {
+		cntrl = 1;
+		while (getline(fileIN, lineA)) {
+			Cor.push_back(vector<double>());
+			istringstream streamA(lineA);
+			Col = 0;
+			while (streamA >> x) {
+				Cor[Row].push_back(x);
+				Col++;
+				if (Col < 3 && x>1)
+					Exit = 1;
+			}
+			Row++;
+			if (Col != 3)
+				Exit = 1;
+		}
+
+	}
+	TotalN = Row;
+	textBox1->Text = Convert::ToString(Row);
+	NerCORD = new vector<double>[TotalN];
+
+	for (int sf = 0; sf < TotalN; sf++) {
+		NerCORD[sf].resize(3);
+
+	}
+	for (int i = 0; i < Row; i++) {
+		for (int j = 0; j < 3; j++)
+		{
+			if (j==0)
+				NerCORD[i][j] = Cor[i][j] * Xlimit;
+			else if (j==1)
+				NerCORD[i][j] = Cor[i][j] * Ylimit;
+			else if (j == 2)
+				NerCORD[i][j] = Cor[i][j] * Zlimit;
+			}
+
+
+	}
+}
 };
 }
+

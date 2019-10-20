@@ -23,15 +23,21 @@ NEURON::NEURON() {
     {
 
             if (Convec[i] == 1) {
+				// Defining AXON between specified neuron to its connections
                 AXON newAX(ID, i + 1);
+				// Defining ONE SYNAPSE between specified neuron to its connections
                 SYNAPSE newSy(ID,i + 1);
                 N=N+1;
                 newSy.SYNO=N;
+				// Saving the distance between this neuron with its connections
                 double d = Cordvec[ID-1].distance_calc(Cordvec[i]);
                 newAX.set_length(d);
-                cout<< " L "<<d<<" ";
+				// Adding AXON to AXON vector of Neuron
                 axon.push_back(newAX);
+				// Adding SYNAPSE to SYNAPSE vector of Neuron
+
                 synapse.push_back(newSy);
+				// Calculating the transmission time of Axon and adding to time vector
                 Tsvec[i]= newAX.calculate_delay(0);
 
             } else {
@@ -53,10 +59,10 @@ TimeVEC=Tsvec;
 void NEURON::update_volt(OutEvent OE,double QW,int InSp_num) {
 
 
-    if(OE.get_otime()-collision_time>0.00265 ) {
-		
-		cout << "Int Step0 " << indx << endl;
-        Volt = (Volt+70)*exp(-(OE.get_otime()-prevtime)/(1))-70+QW;
+    if(OE.get_otime()-collision_time>0 ) {
+		//default 0.00265
+		//cout << "Int Step0 " << indx << endl;
+        Volt = (Volt+70)*exp(-(OE.get_otime()-prevtime)/(decay_const))-70+QW;
         status=0;
 		double diff = QW;
 		VoltCont.push_back(vector<double>());
@@ -65,8 +71,8 @@ void NEURON::update_volt(OutEvent OE,double QW,int InSp_num) {
 		VoltCont[indx].push_back(diff);
 		VoltCont[indx].push_back(OE.get_otime());
 
-		cout << "Neuron Step0 "<<indx << endl;
-		if (Volt >= -55)
+		//cout << "Neuron Step0 "<<indx << endl;
+		if (Volt >= -70 + neuron_specific_voltage)
 		{
 			vector<vector<double>> temp1;
 			status = 1;
@@ -137,6 +143,7 @@ void NEURON::update_volt(OutEvent OE,double QW,int InSp_num) {
 				indx = 0;
 				Spike_num += 1;
 				Spike Spikex(temp1, (ax - ass),Spike_num );
+				Spikex.Spike_time = collision_time;
 				temp1.clear();
 				Spike_vector.push_back(Spikex);
 				

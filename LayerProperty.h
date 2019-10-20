@@ -69,6 +69,11 @@ namespace Interface {
 	public: System::Windows::Forms::TextBox^  textBox8;
 	private: System::Windows::Forms::Panel^  panel2;
 	public: System::Windows::Forms::Label^  label12;
+	public: System::Windows::Forms::TextBox^  textBox9;
+	public: System::Windows::Forms::TextBox^  textBox10;
+	private: System::Windows::Forms::Label^  label13;
+	public:
+	private: System::Windows::Forms::Label^  label14;
 	private:
 
 	public:
@@ -113,6 +118,10 @@ namespace Interface {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
+			this->label13 = (gcnew System::Windows::Forms::Label());
+			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -228,7 +237,7 @@ namespace Interface {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(257, 226);
+			this->button1->Location = System::Drawing::Point(341, 260);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 12;
@@ -238,7 +247,7 @@ namespace Interface {
 			// 
 			// richTextBox1
 			// 
-			this->richTextBox1->Location = System::Drawing::Point(8, 178);
+			this->richTextBox1->Location = System::Drawing::Point(8, 190);
 			this->richTextBox1->Name = L"richTextBox1";
 			this->richTextBox1->ReadOnly = true;
 			this->richTextBox1->Size = System::Drawing::Size(199, 161);
@@ -256,9 +265,9 @@ namespace Interface {
 			this->panel1->Controls->Add(this->textBox7);
 			this->panel1->Controls->Add(this->button2);
 			this->panel1->Controls->Add(this->textBox8);
-			this->panel1->Location = System::Drawing::Point(8, 348);
+			this->panel1->Location = System::Drawing::Point(8, 369);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(401, 92);
+			this->panel1->Size = System::Drawing::Size(494, 92);
 			this->panel1->TabIndex = 14;
 			// 
 			// label8
@@ -317,7 +326,7 @@ namespace Interface {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(287, 33);
+			this->button2->Location = System::Drawing::Point(332, 32);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 3;
@@ -337,6 +346,10 @@ namespace Interface {
 			// panel2
 			// 
 			this->panel2->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel2->Controls->Add(this->textBox9);
+			this->panel2->Controls->Add(this->textBox10);
+			this->panel2->Controls->Add(this->label13);
+			this->panel2->Controls->Add(this->label14);
 			this->panel2->Controls->Add(this->textBox1);
 			this->panel2->Controls->Add(this->textBox2);
 			this->panel2->Controls->Add(this->textBox3);
@@ -351,13 +364,49 @@ namespace Interface {
 			this->panel2->Controls->Add(this->label4);
 			this->panel2->Location = System::Drawing::Point(8, 12);
 			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(395, 133);
+			this->panel2->Size = System::Drawing::Size(494, 144);
 			this->panel2->TabIndex = 15;
+			// 
+			// textBox9
+			// 
+			this->textBox9->Location = System::Drawing::Point(380, 12);
+			this->textBox9->Name = L"textBox9";
+			this->textBox9->Size = System::Drawing::Size(100, 20);
+			this->textBox9->TabIndex = 12;
+			this->textBox9->TextChanged += gcnew System::EventHandler(this, &LayerProperty::textBox9_TextChanged);
+			this->textBox9->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &LayerProperty::textBox9_KeyPress);
+			// 
+			// textBox10
+			// 
+			this->textBox10->Location = System::Drawing::Point(380, 56);
+			this->textBox10->Name = L"textBox10";
+			this->textBox10->Size = System::Drawing::Size(100, 20);
+			this->textBox10->TabIndex = 13;
+			this->textBox10->TextChanged += gcnew System::EventHandler(this, &LayerProperty::textBox10_TextChanged);
+			this->textBox10->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &LayerProperty::textBox10_KeyPress);
+			// 
+			// label13
+			// 
+			this->label13->AutoSize = true;
+			this->label13->Location = System::Drawing::Point(358, 59);
+			this->label13->Name = L"label13";
+			this->label13->Size = System::Drawing::Size(20, 13);
+			this->label13->TabIndex = 15;
+			this->label13->Text = L"Z2";
+			// 
+			// label14
+			// 
+			this->label14->AutoSize = true;
+			this->label14->Location = System::Drawing::Point(360, 15);
+			this->label14->Name = L"label14";
+			this->label14->Size = System::Drawing::Size(20, 13);
+			this->label14->TabIndex = 14;
+			this->label14->Text = L"Z1";
 			// 
 			// label12
 			// 
 			this->label12->AutoSize = true;
-			this->label12->Location = System::Drawing::Point(7, 159);
+			this->label12->Location = System::Drawing::Point(7, 168);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(57, 13);
 			this->label12->TabIndex = 16;
@@ -367,7 +416,7 @@ namespace Interface {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(415, 445);
+			this->ClientSize = System::Drawing::Size(514, 478);
 			this->Controls->Add(this->label12);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
@@ -390,6 +439,9 @@ namespace Interface {
 	public: double x2;
 	public: double y1;
 	public: double y2;
+	public: double z1;
+	public: double z2;
+
 			int RowLay;
 			int index;
 	public: int N;
@@ -471,6 +523,9 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 	double x4;
 	double y3;
 	double y4;
+	double z3;
+	double z4;
+
 	int chekc = 0;
 	int con = 0;
 	
@@ -480,6 +535,8 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 			y3 = LayTemp3[i][1];
 			x4 = LayTemp3[i][2];
 			y4 = LayTemp3[i][3];
+			z3= LayTemp3[i][5];
+			z4= LayTemp3[i][6];
 
 
 
@@ -502,17 +559,19 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 	}
 	if(con>0)
 		MessageBox::Show(Convert::ToString("No Intersection is allowed between layers (with Layer " + con + ")"));
-	else if (x2 > x1 && y2 > y1 && N > 0) {
+	else if (x2 > x1 && y2 > y1 && z2>z1 && N > 0) {
 
 		Save = 1;
 		Close();
 	}
 	else if (N <= 0)
 		MessageBox::Show("Number of Neuron should be positive");
-	else if(x1>=x2)
+	else if (x1>=x2)
 		MessageBox::Show("X2 should be greater than X1");
 	else if (y1 >= y2)
 		MessageBox::Show("Y2 should be greater than Y1");
+	else if (z1 >= z2)
+		MessageBox::Show("Z2 should be greater than Z1");
 
 }
 private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -668,6 +727,56 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 	else {
 		MessageBox::Show("Please Enter First Layer Number ");
 	}
+}
+private: System::Void textBox9_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	String^ s = textBox9->Text;
+	Double number;
+	String^ sss = s->Replace(".", ",");
+
+	bool b = Double::TryParse(sss, number);
+	if (textBox9->TextLength != 0 && textBox9->Text != ".") {
+		z1 = Convert::ToDouble(sss);
+		if (z1 > 1)
+		{
+			textBox9->Text = Convert::ToString(1);
+		}
+	}
+
+}
+private: System::Void textBox10_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+	String^ s = textBox10->Text;
+	Double number;
+	String^ sss = s->Replace(".", ",");
+
+	bool b = Double::TryParse(sss, number);
+	if (textBox10->TextLength != 0 && textBox10->Text != ".") {
+		z2 = Convert::ToDouble(sss);
+		if (z2 > 1)
+		{
+			textBox10->Text = Convert::ToString(1);
+		}
+	}
+
+}
+private: System::Void textBox9_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	if (e->KeyChar == '.')
+	{
+		if (this->textBox9->Text->Contains(".") && !this->textBox9->SelectedText->Contains("."))
+			e->Handled = true;
+	}
+	// Accept only digits "." and the Backspace character
+	else if (!Char::IsDigit(e->KeyChar) && e->KeyChar != 0x08)
+		e->Handled = true;
+}
+private: System::Void textBox10_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	if (e->KeyChar == '.')
+	{
+		if (this->textBox10->Text->Contains(".") && !this->textBox10->SelectedText->Contains("."))
+			e->Handled = true;
+	}
+	// Accept only digits "." and the Backspace character
+	else if (!Char::IsDigit(e->KeyChar) && e->KeyChar != 0x08)
+		e->Handled = true;
 }
 };
 }

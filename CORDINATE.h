@@ -10,8 +10,9 @@ class CORDINATE {
 public:
     double X_axis;
     double Y_axis;
+	double Z_axis;
     CORDINATE();
-    CORDINATE(double,double);
+    CORDINATE(double,double,double);
 
     double distance_calc(CORDINATE);
 private:

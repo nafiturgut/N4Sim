@@ -6,11 +6,10 @@
 #include <cmath>
 #include "AXON.h"
 
+#include "MyForm1.h"
+
 
 AXON::AXON() {
-
-
-
 
 }
 AXON::AXON(int inID, int outID) {
@@ -27,12 +26,31 @@ in_ID=inID;
 out_ID=outID;
 }
 
+void AXON::update_failure()
+{
+	double axon_lambda = 0.00025;  //m
+	double axon_fail = 1 - exp(-length / axon_lambda); // m 
+	double p = rand() % 100;
+	p = p / 100;
+
+	// no effect p if p = 1
+	p = 1;
+
+	if (p > axon_fail)
+		axon_release = 1;
+	else
+		axon_release = 0;
+	cout << "Axon failure " << axon_fail << " length " << length <<"Fail "<< axon_release<< endl;
+
+}
+
 double AXON::calculate_delay(bool myel)  {
 
     myelination=myel;
 if (myelination==0){
 	
     delay=ref_period+ length/sqrt(width/(8*resistivity*a_resistance*a_capacitance*a_capacitance)); // s ---->Length (m)
+	cout << " nat " << delay << endl;
 
 }
 

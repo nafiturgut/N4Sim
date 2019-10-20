@@ -13,6 +13,7 @@ public:
 	Spike(vector<vector<double>>&,int,int,int);
 	vector<double>* Spike_Contribution;
 	int Spike_contr_size;
+	double Spike_time;
 	int Neuron_ID;
 	int Spike_ID;
 	vector<double>* Spike_vec;
