@@ -55,4 +55,3 @@ two boxes in Area 1 is filled with numbers from the layer part: total number of 
 4- If everything goes well, you will see a result screen similar to the image below. You can see both visualization and log screen.
 
 ![alt text](https://github.com/nafiturgut/N4Sim/blob/master/project_images/result.png?raw=true)
-
