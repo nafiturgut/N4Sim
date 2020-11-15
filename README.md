@@ -29,7 +29,7 @@ or from the panel.
 
 6- In order to run the simulator, you should first click on Error Check then press Start for running simulator.
 
-![alt text](./project_images/main.png)
+![alt text](https://github.com/nafiturgut/N4Sim/blob/master/project_images/main.png?raw=true)
 
 
 
@@ -38,19 +38,20 @@ In order to run a simulation necessary input files should be uploaded.
 
 1- First click Custom Layer in Area 1 then click Input From File in Area 3. Then click open to choose Layer.txt file from input_files folder.
 If the txt file is suitable for this part you will get this screen. You should enter Number of Input & Output Neuron in Area 1 as 1 to proceed.
-![alt text](./project_images/layer.png)
+
+![alt text](https://github.com/nafiturgut/N4Sim/blob/master/project_images/layer.png?raw=true)
 
 2- After adding the layer, you should add input spikes for the network as well. For this part, click Input from File in Area 2, and click open
 to select Input.txt from input_files. If the txt file is suitable for this part you will get this screen. You can see that 
 two boxes in Area 1 is filled with numbers from the layer part: total number of neurons = 8, total layer = 3 which is taken from Layer.txt.
 
-![alt text](./project_images/input.png)
+![alt text](https://github.com/nafiturgut/N4Sim/blob/master/project_images/input.png?raw=true)
 
 3- Finally, all configurations for the network is settled. You can initialize the network by first clicking Error Check then start.
-![alt text](./project_images/error check.png)
+
+![alt text](https://github.com/nafiturgut/N4Sim/blob/master/project_images/error_check.png?raw=true)
 
 `
 4- If everything goes well, you will see a result screen similar to the image below. You can see both visualization and log screen.
-![alt text](./project_images/result.png)
 
-
+![alt text](https://github.com/nafiturgut/N4Sim/blob/master/project_images/result.png?raw=true)
