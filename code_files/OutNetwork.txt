@@ -1,0 +1,9 @@
+Total Number of Neuron: 21
+Number of Layers: 4
+Number of Input Neuron: 3
+Number of Output Neuron: 3
+Connectivity Probaility: 0.85
+Connectivity: 0
+Regular Layer: 0
+Interfeedback: 1
+Intrafeedback: 1
