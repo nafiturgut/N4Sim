@@ -1,0 +1,26 @@
+Total Number of Neuron: 5			
+Number of Layers: 3  			   	
+Number of Input Neuron: 1 			
+Number of Output Neuron: 1			
+Connectivity Probability: 1              	
+Connectivity:  0              			
+Regular Layer: 1             			
+Interfeedback: 0         			
+Intrafeedback: 0	     			
+
+
+Please leave space after ":" when typing number!!!
+
+Do NOT change anything except numbers!!!
+
+	   FORMAT
+--------------------------------------------------------------------------------------------------------------------
+-Total Number of Neuron  =======================>>> Integer
+-Number of Layers	 =======================>>> Integer>=2 (This should be at maximum Total Neuron-Input-Output)
+-Number of Input Neuron  =======================>>> Integer>=1 (This should be at maximum Total Neuron-1)
+-Number of Output Neuron =======================>>> Integer>=1 (This should be at maximum Total Neuron-Input Neuron)	
+Double € [0,1]
+Bool---> 0 For Constant Connectivity
+Bool---> 0 For Irregular Layer
+Bool---> 0 For No
+Bool---> 0 For Yes

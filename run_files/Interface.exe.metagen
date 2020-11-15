@@ -1,0 +1,102 @@
+  Interface.LayerProperty.resources - Embedded, ContainedInManifestFile, 
+  Interface.MyForm1.resources - Embedded, ContainedInManifestFile, 
+  Interface.NetworkProperty.resources - Embedded, ContainedInManifestFile, 
+  Interface.NeuronProperty.resources - Embedded, ContainedInManifestFile, 
+  Interface.Parameter Configurations.resources - Embedded, ContainedInManifestFile, 
+  Interface.ZoomPic.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly Interface, Version=0.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class Interface.ParameterConfigurations: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class Interface.LayerProperty: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.TextBox textBox1 : Public
+    System.Windows.Forms.TextBox textBox2 : Public
+    System.Windows.Forms.TextBox textBox3 : Public
+    System.Windows.Forms.TextBox textBox4 : Public
+    System.Windows.Forms.TextBox textBox5 : Public
+    System.Windows.Forms.Button button1 : Public
+    System.Windows.Forms.RichTextBox richTextBox1 : Public
+    System.Windows.Forms.TextBox textBox6 : Public
+    System.Windows.Forms.TextBox textBox7 : Public
+    System.Windows.Forms.Button button2 : Public
+    System.Windows.Forms.TextBox textBox8 : Public
+    System.Windows.Forms.Label label12 : Public
+    System.Windows.Forms.TextBox textBox9 : Public
+    System.Windows.Forms.TextBox textBox10 : Public
+    std.vector<double\,std::allocator<double> >* LayTemp3 : Public
+    std.vector<int\,std::allocator<int> >* LayerIN : Public
+    Double x1 : Public
+    Double x2 : Public
+    Double y1 : Public
+    Double y2 : Public
+    Double z1 : Public
+    Double z2 : Public
+    Int32 RowLay : Public
+    Int32 index : Public
+    Int32 N : Public
+    Int32 First : Public
+    Int32 Second : Public
+    Int32 var : Public
+    Int32 Limit : Public
+    Int32 Save : Public
+Class Interface.NetworkProperty: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.RichTextBox richTextBox1 : Public
+    System.Windows.Forms.Button button2 : Public
+    System.Windows.Forms.TextBox textBox1 : Public
+    System.Windows.Forms.TextBox textBox2 : Public
+    System.Windows.Forms.TextBox textBox3 : Public
+    std.vector<int\,std::allocator<int> >* LayConn : Public
+    std.vector<int\,std::allocator<int> >* IndexMat : Public
+    Int32 var : Public
+    Int32 nat : Public
+    Int32 save : Public
+    Int32 c : Public
+    Int32 First : Public
+    Int32 Second : Public
+    Int32 LayerLimit : Public
+Class Interface.ZoomPic: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.Label label1 : Public
+    std.vector<float\,std::allocator<float> >* Points : Public
+    Int32 siz : Public
+Class Interface.MyForm1: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.ListBox LayerList : Public
+  Methods:
+    Start_Net(Int32, vector<std::vector<double\,std::allocator<double> >\,std::allocator<std::vector<double\,std::allocator<double> > > >* IsImplicitlyDereferenced, Int32, Network* IsImplicitlyDereferenced, Double): PrivateScope, Public, HideBySig
+    update_M(vector<OutEvent\,std::allocator<OutEvent> >* IsImplicitlyDereferenced, vector<OutEvent\,std::allocator<OutEvent> >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    update_O(vector<OutEvent\,std::allocator<OutEvent> >* IsImplicitlyDereferenced, Event, vector<int\,std::allocator<int> >*, vector<double\,std::allocator<double> >*, Int32): PrivateScope, Public, HideBySig
+    MarshalString(String, basic_string<char\,std::char_traits<char>\,std::allocator<char> >* IsImplicitlyDereferenced): PrivateScope, Public, HideBySig
+    Connection_ADD(vector<int\,std::allocator<int> >*, vector<int\,std::allocator<int> >*, Int32, Int32): PrivateScope, Public, HideBySig
+    LayerNeuron_ADD(vector<double\,std::allocator<double> >*, vector<double\,std::allocator<double> >*, Int32, Int32, Double, Double): PrivateScope, Public, HideBySig
+    Connection_CHANGE(vector<int\,std::allocator<int> >*, vector<int\,std::allocator<int> >*, vector<double\,std::allocator<double> >*, Int32, Int32, Int32, vector<int\,std::allocator<int> >*): PrivateScope, Public, HideBySig
+    Evaluate_Spike(Int32, Network*): PrivateScope, Public, HideBySig
+    Calculate_Neural_Activity(Int32, Network* IsImplicitlyDereferenced, vector<int\,std::allocator<int> >*, Int32, vector<double\,std::allocator<double> >*, Int32): PrivateScope, Public, HideBySig
+    Calculate_Plasticity_Weights(Int32, Int32, Int32, Network* IsImplicitlyDereferenced, Double, Int32): PrivateScope, Public, HideBySig
+Class Interface.NeuronProperty: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
